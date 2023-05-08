@@ -14,7 +14,11 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <link rel="icon" type="svg" href="./assets/images/logo.svg">
+    <!-- ===== Link Swiper's CSS ===== -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
+    <link rel="icon" type="svg" href="./assets/images/logo.svg">
 </head>
 
 <body>
@@ -41,12 +45,11 @@
                     <div class="hero-inner">
                         <div class="hero-copy">
                             <h1 class="hero-title">O MUNDO <span style="color:#097dea">DIGITAL</span></h1>
-                            <p>Meu projeto é sobre inteliencia artificial hahaahahaha</p>
-                            <div class="hero-cta"><a class="button button-primary" href="#">Pre order now</a><a
-                                    class="button" href="#">Get in touch</a></div>
+                            <p>Meu projeto é sobre inteliencia artificial</p>
+                            <div class="hero-cta"><a class="button button-primary" href="#">Saiba mais</a>
+                            </div>
                         </div>
                     </div>
-                </div>
             </section>
 
             <!-- breve explicação-->
@@ -54,26 +57,26 @@
                 <h2 class="section-title mt-0">A inteligencia artificial na minha vida</h2>
                 <ul>
                     <li style="--accent-color:#41516C">
-                        <div class="date">2002</div>
+                        <div class="date">2015</div>
                         <div class="title">Title 1</div>
                         <div class="descr">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas itaque hic
                             quibusdam fugiat est numquam harum, accusamus suscipit consequatur laboriosam!</div>
                     </li>
                     <li style="--accent-color:#FBCA3E">
-                        <div class="date">2007</div>
+                        <div class="date">2015</div>
                         <div class="title">Title 2</div>
                         <div class="descr">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos adipisci nobis
                             nostrum vero nihil veniam.</div>
                     </li>
                     <li style="--accent-color:#E24A68">
-                        <div class="date">2012</div>
+                        <div class="date">2018</div>
                         <div class="title">Title 3</div>
                         <div class="descr">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga minima
                             consequuntur soluta placeat iure totam commodi repellendus ea delectus, libero fugit quod
                             reprehenderit, sequi quo, et dolorum saepe nulla hic.</div>
                     </li>
                     <li style="--accent-color:#1B5F8C">
-                        <div class="date">2017</div>
+                        <div class="date">2021</div>
                         <div class="title">Title 4</div>
                         <div class="descr">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit, cumque.
                         </div>
@@ -180,7 +183,6 @@
                             <div class="profile-card__name">WINYCIOS ALVES NASCIMENTO</div>
                             <div class="profile-card__txt">Se Deus quiser Programador<strong> Full-stack junior</strong>
                             </div>
-                            <div class="profile-card__txt">Leticia<strong> Esse cara te ama</strong></div>
                             <div class="profile-card-loc">
                                 <span class="profile-card-loc__txt">
                                     SÃO PAULO, BRASIL
@@ -291,46 +293,73 @@
             <div class="pricing-header text-center">
                 <h2 class="section-title">HISTÓRIAS DOS USÚARIOS</h2>
             </div>
-            <section class="testimonial" style="margin-top: 50px;">
-                <div class="slider">
-                    <input type="radio" name="slider" title="slide1" checked="checked" class="slider__nav" />
-                    <input type="radio" name="slider" title="slide2" class="slider__nav" />
-                    <input type="radio" name="slider" title="slide3" class="slider__nav" />
-                    <input type="radio" name="slider" title="slide4" class="slider__nav" />
-                    <div class="slider__inner">
-                        <div class="slider__contents">
-                            <div class="testimonial__img">
-                                <img src="./assets/images/winyc.jpeg" alt="foto comentario">
+            <section>
+                <div class="swiper mySwiper container">
+                    <div class="swiper-wrapper content">
+
+                        <div class="swiper-slide card">
+                            <div class="card-content">
+                                <div class="image">
+                                    <img src="https://tinypic.host/images/2022/12/19/img_avatar.png" alt=""
+                                        class="card-img">
+                                </div>
+
+                                <div class="name-profession">
+                                    <span class="name">Mohamed Yousef</span>
+                                    <span class="profession">Web Developer</span>
+                                </div>
+
+                                <div class="rating">
+                                    <div class="estrelas">
+                                        <input type="radio" id="cm_star-empty" name="fb" value="" checked />
+                                        <label for="cm_star-1"><i class="fa"></i></label>
+                                        <input type="radio" id="cm_star-1" name="fb" value="1" />
+                                        <label for="cm_star-2"><i class="fa"></i></label>
+                                        <input type="radio" id="cm_star-2" name="fb" value="2" />
+                                        <label for="cm_star-3"><i class="fa"></i></label>
+                                        <input type="radio" id="cm_star-3" name="fb" value="3" />
+                                        <label for="cm_star-4"><i class="fa"></i></label>
+                                        <input type="radio" id="cm_star-4" name="fb" value="4" />
+                                        <label for="cm_star-5"><i class="fa"></i></label>
+                                        <input type="radio" id="cm_star-5" name="fb" value="5" />
+                                    </div>
+                                </div>
                             </div>
-                            <h2 class="slider__caption">codepen</h2>
-                            <p class="slider__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                                cupiditate omnis possimus illo quos, corporis minima!</p>
                         </div>
-                        <div class="slider__contents">
-                            <div class="testimonial__img">
-                                <img src="./assets/images/winyc.jpeg" alt="foto comentario">
+
+                        <div class="swiper-slide card">
+                            <div class="card-content">
+                                <div class="image">
+                                    <img src="https://tinypic.host/images/2022/12/19/img_avatar.png" alt=""
+                                        class="card-img">
+                                </div>
+
+                                <div class="name-profession">
+                                    <span class="name">Mohamed Yousef</span>
+                                    <span class="profession">Web Developer</span>
+                                </div>
+
+                                <div class="rating">
+                                    <div class="estrelas">
+                                        <input type="radio" id="cm_star-one" name="fb" value="" checked />
+                                        <label for="stars-1"><i class="fa"></i></label>
+                                        <input type="radio" id="stars-1" name="fb" value="1" />
+                                        <label for="stars-2"><i class="fa"></i></label>
+                                        <input type="radio" id="stars-2" name="fb" value="2" />
+                                        <label for="stars-3"><i class="fa"></i></label>
+                                        <input type="radio" id="stars-3" name="fb" value="3" />
+                                        <label for="stars-4"><i class="fa"></i></label>
+                                        <input type="radio" id="stars-4" name="fb" value="4" />
+                                        <label for="stars-5"><i class="fa"></i></label>
+                                        <input type="radio" id="stars-5" name="fb" value="5" />
+                                    </div>
+                                </div>
                             </div>
-                            <h2 class="slider__caption">newspaper-o</h2>
-                            <p class="slider__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                                cupiditate omnis possimus illo quos, corporis minima!</p>
-                        </div>
-                        <div class="slider__contents">
-                            <div class="testimonial__img">
-                                <img src="./assets/images/winyc.jpeg" alt="foto comentario">
-                            </div>
-                            <h2 class="slider__caption">television</h2>
-                            <p class="slider__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                                cupiditate omnis possimus illo quos, corporis minima!</p>
-                        </div>
-                        <div class="slider__contents">
-                            <div class="testimonial__img">
-                                <img src="./assets/images/winyc.jpeg" alt="foto comentario">
-                            </div>
-                            <h2 class="slider__caption">diamond</h2>
-                            <p class="slider__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                                cupiditate omnis possimus illo quos, corporis minima!</p>
                         </div>
                     </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </section>
 
@@ -405,7 +434,9 @@
         </footer>
     </div>
 
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/swiper.js"></script>
 </body>
 
 </html>
