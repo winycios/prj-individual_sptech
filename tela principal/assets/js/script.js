@@ -5,7 +5,7 @@ function ver_resultado() {
     if (inputQuestion.value) SendQuestion();
 }
 
-const OPENAI_API_KEY = "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"
+const OPENAI_API_KEY = "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"
 
 function SendQuestion() {
   var sQuestion = inputQuestion.value;

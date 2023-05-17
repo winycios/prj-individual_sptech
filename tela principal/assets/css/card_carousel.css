@@ -64,7 +64,7 @@
     overflow: hidden;
     position: relative;
     z-index: 4;
-    box-shadow: 0px 5px 50px 0px #0270D7, 0px 0px 0px 7px rgba(2, 112, 215, 0.5);
+    box-shadow: 0px 5px 50px 0px var(--box1-color), 0px 0px 0px 7px rgba(2, 112, 215, 0.5);
 }
 
 @media screen and (max-width: 576px) {
@@ -93,14 +93,14 @@
 .profile-card__name {
     font-weight: 700;
     font-size: 24px;
-    color: #0270D7;
+    color: var(--box1-color);
     margin-bottom: 15px;
 }
 
 .profile-card__txt {
     font-size: 18px;
     font-weight: 500;
-    color: #ffffff;
+    color: var(--text-color);
     margin-bottom: 15px;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .skill-percent {
-    background-color: #0270D7;
+    background-color: var(--box1-color);
     height: 100%;
 }
 
@@ -200,7 +200,7 @@
     border-radius: 50%;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-color);
     background: #405de6;
     box-shadow: 0px 7px 30px rgba(43, 98, 169, 0.5);
     position: relative;
@@ -269,7 +269,7 @@
     margin-left: auto;
     margin-right: auto;
     height: 100%;
-    background: #fff;
+    background: var(--text-color);
     border-radius: 10px;
     padding: 35px;
     transform: scale(0.8);
@@ -511,7 +511,7 @@ section .card .image img {
     width: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #fff;
+    border: 3px solid var(--text-color);
 }
 
 
@@ -601,8 +601,8 @@ section .card .image img {
 }
 
 #chat .btn-icon svg {
-    stroke: #FFF;
-    fill: #FFF;
+    stroke: var(--text-color);
+    fill: var(--text-color);
     width: 50%;
     height: auto;
     position: absolute;

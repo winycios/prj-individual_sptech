@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CADASTRO USÚARIO</title>
+    <link rel="stylesheet" href="./Assets/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="icon" type="svg" href="./Assets/images/so_logo.png">
+</head>
+
+<body>
+    <div class="login-root">
+        <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+
+            <!-- animation -->
+            <div class="loginbackground box-background--white padding-top--64">
+                <div class="loginbackground-gridContainer">
+                    <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+                        <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;">
+                        </div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+                        <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+                        <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+                        <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;">
+                        </div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+                        <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;">
+                        </div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+                        <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- end animation -->
+
+            <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+                <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+                    <h1><a href="" rel="dofollow">MUNDO DIGITAL</a></h1>
+                </div>
+                <div class="formbg-outer">
+                    <div class="formbg">
+                        <div class="formbg-inner padding-horizontal--48">
+                            <span class="padding-bottom--15">CRIE SUA CONTA</span>
+                            <div class="login-content">
+                                <form class="sign-up-form" id="stripe-login">
+                                    <input id='step2' type='checkbox'>
+                                    <input id='step3' type='checkbox'>
+                                    <input id='step4' type='checkbox'>
+
+                                    <div id="part1">
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Email</h5>
+                                                <input type="email" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Nome</h5>
+                                                <input type="Nome" class="input">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="input-div pass">
+                                            <div class="i">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Senha</h5>
+                                                <input type="password" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="field padding-bottom--24">
+                                            <label for='step2' class="continue">
+                                                <div class="submit" style="align-items: center;">Próximo</div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div id="part2">
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Idade</h5>
+                                                <input type="email" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>nao sei</h5>
+                                                <input type="Nome" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="field padding-bottom--24" style="display: flex; flex-direction: row; gap: 30px;">
+                                            <label for='step2' class="continue">
+                                                <div class="submit" style="align-items: center;">Voltar</div>
+                                            </label>
+
+                                            <label>
+                                                <input type="submit" name="submit" value="Cadastrar">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-link padding-top--24">
+                        <span style="color: aliceblue;">Já tem conta ? <a href="./index.html">Clique aqui</a></span>
+                        <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+                            <span><a href="#">© Winyc.alves</a></span>
+                            <span><a href="../tela principal/index.html">Mundo digital</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./Assets/js/script.js"></script>
+</body>
+
+</html>
