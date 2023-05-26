@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>LOGIN USÚARIO</title>
+  <link rel="stylesheet" href="./Assets/css/style.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="icon" type="svg" href="./Assets/images/so_logo.png">
+</head>
+
+<body>
+  <div class="login-root">
+    <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+
+      <!-- animation -->
+      <div class="loginbackground box-background--white padding-top--64">
+        <div class="loginbackground-gridContainer">
+          <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+            <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+            <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+            <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+            <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+            <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+            <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+          </div>
+        </div>
+      </div>
+      <!-- end animation -->
+      <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+        <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+          <h1><a href="" rel="dofollow">MUNDO DIGITAL</a></h1>
+        </div>
+        <div class="wf-modal" id="modal">
+          <article class="wf-dialog-modal">
+            <header class="wf-header-modal">
+              <h2 class="tit" id="texto_inicial"> </h2>
+              <span class="close"><a href="#" class="bt" onclick="modal.style.display = 'none'"
+                  aria-hidden="true"></a></span>
+            </header>
+            <div class="wf-content-modal">
+              <p id="texto">This is an modal example</p>
+            </div>
+            <footer class="wf-footer-modal">
+              <span class="ok"><a href="#" class="bt" onclick="modal.style.display = 'none'"
+                  aria-hidden="true">ok</a></span>
+            </footer>
+          </article>
+        </div>
+        <div class="formbg-outer">
+          <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+              <span class="padding-bottom--15">LOGUE COM A SUA CONTA</span>
+              <div class="login-content">
+                <form id="stripe-login">
+                  <div class="input-div one">
+                    <div class="i">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                      <h5>Email</h5>
+                      <input type="email" id="email_input" class="input">
+                    </div>
+                  </div>
+
+                  <div class="input-div pass">
+                    <div class="i">
+                      <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                      <h5>Senha</h5>
+                      <input type="password" id="senha_input" class="input">
+                    </div>
+                  </div>
+
+                  <a class="for_pass padding-bottom--15" href="#">Esqueceu a senha ?</a>
+                  <div class="field padding-top--24">
+                    <div class="submit" onclick="entrar()">Entrar</div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-link padding-top--24">
+            <span style="color: aliceblue;">Não tem conta ? <a href="./cadastro.html">Cadastre-se</a></span>
+            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+              <span><a href="#">© Winyc.alves</a></span>
+              <span><a href="../inicial/">Mundo digital</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./Assets/js/script.js"></script>
+  <script src="../js/funcoes.js"></script>
+</body>
+
+</html>
+
+<script>
+
+
+  function entrar() {
+
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      modal.style.display = "flex"
+      texto_inicial.innerHTML = `Olá, ${emailVar}`
+      texto.innerHTML = `<div style="color: red; font-weight: 500;">Os campos estão em branco, preencha eles novamente por favor</div>`;
+
+      return false;
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        modal.style.display = "flex"
+        texto_inicial.innerHTML = `Olá, ${emailVar}`
+        texto.innerHTML = `<div style="color: blue; font-weight: 500;">Jajá estará na tela de login</div>`;
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.EMAIL_USUARIO = json.email;
+          sessionStorage.NOME_USUARIO = json.nome;
+          sessionStorage.ID_USUARIO = json.id;
+
+          setTimeout(function () {
+            window.location = "../dash_user/index.html";
+          }, 2000); // apenas para exibir o loading
+
+        });
+
+      } else {
+          modal.style.display = "flex"
+          texto_inicial.innerHTML = `Olá, ${emailVar}`
+          texto.innerHTML = `<div style="color: red; font-weight: 500;">Usuário não encontrado, verifique suas credenciais!</div>`;
+
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+
+</script>

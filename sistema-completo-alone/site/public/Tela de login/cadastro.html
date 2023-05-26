@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CADASTRO USÚARIO</title>
+    <link rel="stylesheet" href="./Assets/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="icon" type="svg" href="./Assets/images/so_logo.png">
+</head>
+
+<body>
+    <div class="login-root">
+        <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+
+            <!-- animation -->
+            <div class="loginbackground box-background--white padding-top--64">
+                <div class="loginbackground-gridContainer">
+                    <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+                        <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;">
+                        </div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+                        <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+                        <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+                        <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;">
+                        </div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+                        <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;">
+                        </div>
+                    </div>
+                    <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+                        <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- end animation -->
+
+            <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+                <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+                    <h1><a href="" rel="dofollow">MUNDO DIGITAL</a></h1>
+                </div>
+                <div class="wf-modal" id="modal">
+                    <article class="wf-dialog-modal">
+                        <header class="wf-header-modal">
+                            <h2 class="tit" id="texto_inicial"> </h2>
+                            <span class="close"><a href="#" class="bt" onclick="modal.style.display = 'none'"
+                                    aria-hidden="true"></a></span>
+                        </header>
+                        <div class="wf-content-modal">
+                            <p id="texto">This is an modal example</p>
+                        </div>
+                        <footer class="wf-footer-modal">
+                            <span class="ok"><a href="#" class="bt" onclick="modal.style.display = 'none'"
+                                    aria-hidden="true">ok</a></span>
+                        </footer>
+                    </article>
+                </div>
+                <div class="formbg-outer">
+                    <div class="formbg">
+                        <div class="formbg-inner padding-horizontal--48">
+                            <span class="padding-bottom--15">CRIE SUA CONTA</span>
+                            <div class="login-content">
+                                <div class="sign-up-form" id="stripe-login">
+                                    <div>
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Email</h5>
+                                                <input type="email" id="email_input" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="input-div pass">
+                                            <div class="i">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Senha</h5>
+                                                <input type="password" id="senha_input" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="field padding-top--24">
+                                            <button class="submit" onclick="cadastrar()">CADASTRAR</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-link padding-top--24">
+                    <span style="color: aliceblue;">Já tem conta ? <a href="./index.html">Clique aqui</a></span>
+                    <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+                        <span><a href="#">© Winyc.alves</a></span>
+                        <span><a href="../inicial/index.html">Mundo digital</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="./Assets/js/script.js"></script>
+    <script src="../js/funcoes.js"></script>
+</body>
+
+</html>
+
+<script>
+    function cadastrar() {
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            modal.style.display = "flex"
+            texto_inicial.innerHTML = `Olá, ${emailVar}`
+            texto.innerHTML = `<div style="color: red; font-weight: 500;">Os campos estão em branco, preencha eles novamente por favor</div>`;
+
+            return false;
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                modal.style.display = "flex"
+                texto_inicial.innerHTML = `Olá, ${emailVar}`
+                texto.innerHTML = `<div style="color: blue; font-weight: 500;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</div>`;
+
+                setTimeout(() => {
+                    window.location = "./login.html";
+                }, "2000")
+
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                modal.style.display = "flex"
+                texto_inicial.innerHTML = `Perdão`
+                texto.innerHTML = `<div style="font-weight: 500;">Houve um erro ao tentar realizar o cadastro!</div>`;
+
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+</script>
