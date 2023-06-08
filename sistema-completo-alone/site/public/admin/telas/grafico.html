@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador - Gráficos</title>
 
-    <link rel="icon" type="png" href="../Assets/Images/so_logo.png">
+    <link rel="icon" type="png" href="../assets/Images/so_logo.png">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
+<body onload="validarSessao()">
     <!-- =============== Navigation ================ -->
     <div class="container">
         <div class="navigation">
@@ -26,7 +27,14 @@
                         <span class="title">MUNDO DIGITAL</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="title">Olá, <span id="b_usuario" style="text-transform: uppercase;"></span></span>
+                    </a>
+                </li>
                 <li>
                     <a href="../index.html">
                         <span class="icon">
@@ -35,7 +43,6 @@
                         <span class="title">Inicial</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="./grafico.html">
                         <span class="icon">
@@ -45,17 +52,9 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                        </span>
-                        <span class="title">Usuários</span>
-                    </a>
-                </li>
 
                 <li>
-                    <a href="#">
+                    <a onclick="limparTela()">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -79,42 +78,35 @@
                 <div class="card">
                     <div>
                         <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="cardName">Usuários</div>
                     </div>
-
                     <div class="iconBx">
                         <ion-icon name="eye-outline"></ion-icon>
                     </div>
                 </div>
-
                 <div class="card">
                     <div>
                         <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="cardName">Bloqueados</div>
                     </div>
-
-                    <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
-                    </div>
-
                     <div class="iconBx">
                         <ion-icon name="chatbubbles-outline"></ion-icon>
                     </div>
                 </div>
-
+                <div class="card">
+                    <div>
+                        <div class="numbers">284</div>
+                        <div class="cardName">Comentarios</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </div>
+                </div>
                 <div class="card">
                     <div>
                         <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="cardName">Avaliações</div>
                     </div>
-
                     <div class="iconBx">
                         <ion-icon name="cash-outline"></ion-icon>
                     </div>
@@ -201,80 +193,16 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Dados Gráficos</h2>
                     </div>
 
                     <table>
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
+                            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
+                            <canvas id="myChartPizza" style="width:100%;max-width:600px"></canvas>
                         </tr>
                     </table>
                 </div>
@@ -283,6 +211,8 @@
     </div>
 
     <!-- =========== Scripts =========  -->
+
+    <script src="../assets/js/charts.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../../js/funcoes.js"></script>
 

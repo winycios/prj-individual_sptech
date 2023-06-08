@@ -16,7 +16,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: none;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -36,7 +36,9 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover {
 
 
 :root {
-  --primary-color: #2a2185;
+  --theme-bg-color: rgba(16 18 27 / 40%);
+  --theme-white-color: rgba(45, 48, 61, 0.4);
+  --primary-color: #474090;
   --white: #fff;
   --gray: #f5f5f5;
   --black1: #222;
@@ -46,6 +48,16 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover {
 body {
   min-height: 100vh;
   overflow-x: hidden;
+
+  background-image: url(../Images/principal.png);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2em;
+  width: 100%;
+  height: 100vh;
 }
 
 .container {
@@ -54,18 +66,41 @@ body {
 }
 
 /* =============== Navigation ================ */
-.navigation {
+
+.video-bg {
   position: fixed;
-  width: 300px;
+  right: 0;
+  top: 0;
+  width: 100%;
   height: 100%;
-  background: var(--primary-color);
-  border-left: 10px solid var(--primary-color);
+}
+
+.video-bg video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.navigation {
+  position: absolute;
+  width: 245px;
+  height: 100%;
   transition: 0.5s;
+  background-color: var(--theme-bg-color);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  border-right: 10px solid var(--primary-color);
+  border-radius: 14px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .navigation.active {
-  width: 80px;
+  width: 65px;
 }
 
 .navigation ul {
@@ -163,17 +198,27 @@ body {
 
 /* ===================== Main ===================== */
 .main {
-  position: absolute;
-  width: calc(100% - 300px);
-  left: 300px;
-  min-height: 100vh;
-  background: var(--white);
+  background-color: var(--theme-bg-color);
+  max-width: 1250px;
+  max-height: 860px;
+  height: 90vh;
+  display: flex;
   transition: 0.5s;
+  flex-direction: column;
+  overflow: Auto;
+  position: relative;
+  width: calc(100% - 250px);
+  left: 250px;
+  border-radius: 14px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .main.active {
   width: calc(100% - 80px);
-  left: 80px;
+  left: 120px;
 }
 
 .topbar {
@@ -209,7 +254,7 @@ body {
 
 .cardBox .card {
   position: relative;
-  background: var(--white);
+  background-color: var(--theme-white-color);
   padding: 30px;
   border-radius: 20px;
   display: flex;
@@ -254,14 +299,14 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 30px;
-  /* margin-top: 10px; */
+  margin-top: 10px; 
 }
 
 .details .recentOrders {
   position: relative;
   display: grid;
   min-height: 500px;
-  background: var(--white);
+  background-color: var(--theme-white-color);
   padding: 20px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
@@ -295,10 +340,12 @@ body {
 
 .details table thead td {
   font-weight: 600;
+  color: var(--black2);
+  text-transform: uppercase;
 }
 
 .details .recentOrders table tr {
-  color: var(--black1);
+  color: var(--gray);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -332,7 +379,7 @@ body {
   display: grid;
   min-height: 500px;
   padding: 20px;
-  background: var(--white);
+  background: var(--theme-white-color);
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
 }

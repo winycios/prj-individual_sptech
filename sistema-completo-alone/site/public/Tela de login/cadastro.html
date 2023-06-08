@@ -157,11 +157,9 @@
                 texto.innerHTML = `<div style="color: blue; font-weight: 500;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</div>`;
 
                 setTimeout(() => {
-                    window.location = "./login.html";
+                    window.location = "./index.html";
                 }, "2000")
 
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 modal.style.display = "flex"
                 texto_inicial.innerHTML = `Perdão`
@@ -170,7 +168,6 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
         return false;
