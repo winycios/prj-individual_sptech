@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), select_dados()">
     <div class="video-bg">
         <img src="./assets/Images/principal.png" alt="" srcset="">
     </div>
@@ -41,6 +41,14 @@
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title">Inicial</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./telas/linguagem.html">
+                        <span class="icon">
+                            <ion-icon name="code-outline"></ion-icon>
+                        </span>
+                        <span class="title">Linguagens</span>
                     </a>
                 </li>
                 <li>
@@ -195,35 +203,34 @@
                     <div class="cardHeader">
                         <h2>SEUS DADOS</h2>
                     </div>
-
                     <table>
                         <tr>
                             <td>
-                                <h4>Nome : <br> <span>Italy</span></h4>
+                                <h4>Nome : <br> <span id="nome"></span></h4>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <h4>Sobrenome : <br> <span>India</span></h4>
+                                <h4>Sobrenome : <br> <span id="sobrenome"></span></h4>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <h4>Email <br> <span>Italy</span></h4>
+                                <h4>Email <br> <span id="email"></span></h4>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <h4>Telefone : <br> <span>India</span></h4>
+                                <h4>Telefone : <br> <span id="telefone"></span></h4>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <h4>Linguagem favorita : <br> <span>Italy</span></h4>
+                                <h4>Data de nascimento : <br> <span id="dataNasc"></span></h4>
                             </td>
                         </tr>
 
@@ -247,57 +254,31 @@
             <h2 class="card-heading">
                 Atualize sua conta
             </h2>
-
+            <div id="result"></div>
             <div class="details-modal-content">
                 <div class="container">
-                    <!-- code here -->
                     <div class="card">
-
-                        <form class="card-form">
+                        <div class="card-form">
                             <div class="input">
-                                <input type="text" class="input-field" required />
+                                <input type="text" id="ipt_nome" class="input-field" required />
                                 <label class="input-label">Nome</label>
                             </div>
                             <div class="input">
-                                <input type="text" class="input-field" required />
+                                <input type="text" id="ipt_sobrenome" class="input-field" required />
                                 <label class="input-label">Sobrenome</label>
                             </div>
                             <div class="input">
-                                <input type="text" class="input-field" required />
+                                <input type="text" id="ipt_telefone" class="input-field" required />
                                 <label class="input-label">Telefone</label>
                             </div>
                             <div class="input">
-                                <input type="date" class="input-field" />
+                                <input type="date" id="dt_nasc" class="input-field" />
                                 <label class="input-label">Data de nascimento</label>
                             </div>
-                            <div class="input">
-                                <label class="select" for="slct">
-                                    <select id="slct" required="required">
-                                        <option value="" disabled="disabled" selected="selected">Selecione a linguagem
-                                            que mais conhece</option>
-                                        <option value="#">One</option>
-                                        <option value="#">Two</option>
-                                        <option value="#">Three</option>
-                                        <option value="#">Four</option>
-                                        <option value="#">Five</option>
-                                        <option value="#">Six</option>
-                                        <option value="#">Seven</option>
-                                    </select>
-                                    <svg>
-                                        <use xlink:href="#select-arrow-down"></use>
-                                    </svg>
-                                </label>
-                                <!-- SVG Sprites-->
-                                <svg class="sprites">
-                                    <symbol id="select-arrow-down" viewbox="0 0 10 6">
-                                        <polyline points="1 1 5 5 9 1"></polyline>
-                                    </symbol>
-                                </svg>
-                            </div>
                             <div class="action">
-                                <button class="action-button">Cadastrar dados</button>
+                                <a onclick="atualizarDados()" class="action-button">Cadastrar dados</a>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -315,3 +296,108 @@
 </body>
 
 </html>
+
+<script>
+    function atualizarDados() {
+        var nomeVar = ipt_nome.value;
+        var SobrenomeVar = ipt_sobrenome.value;
+        var telefoneVar = ipt_telefone.value;
+        var nascimentoVar = dt_nasc.value;
+
+        if (nomeVar == "" || SobrenomeVar == "" || telefoneVar == "" || nascimentoVar == "") {
+            result.innerHTML = `
+            <div id="alertar" class="alert danger-alert">
+                <h3>CAMPOS INVÁLIDOS</h3>
+                <a class="close">&times;</a>
+            </div>`
+
+            setTimeout(() => {
+                alertar.style.display = 'none'
+            }, 2000);
+
+            return false
+        }
+
+        fetch("/usuarios/atualizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                SobrenomeServer: SobrenomeVar,
+                telefoneServer: telefoneVar,
+                nascimentoServer: nascimentoVar,
+            })
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                result.innerHTML = `
+                <div id="alertar" class="alert success-alert">
+                    <h3>Dados atualizados com sucesso</h3>
+                    <a class="close">&times;</a>
+                </div>
+                `
+                setTimeout(() => {
+                    alertar.style.display = 'none'
+                    window.location.href = "./index.html"
+                }, 2000);
+
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+                result.innerHTML = `
+                <div class="alert danger-alert">
+                    <h3>Houve um erro ao tentar realizar a atualização</h3>
+                    <a class="close">&times;</a>
+                </div>
+      `
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+</script>
+
+<script>
+
+    function select_dados() {
+        fetch(`/usuarios/plotar_users`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarDados(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarDados(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            const date = new Date(registro.data);
+            const formattedDate = date.toLocaleDateString();
+
+            nome.innerHTML = registro.nome;
+            sobrenome.innerHTML = registro.sobre;
+            email.innerHTML = registro.email;
+            telefone.innerHTML = registro.telefone;
+            dataNasc.innerHTML = formattedDate;
+
+        }
+
+        
+    }
+</script>

@@ -3,17 +3,44 @@ var router = express.Router();
 
 var usuarioController = require("../controllers/usuarioController");
 
-router.get("/", function (req, res) {
-    usuarioController.testar(req, res);
-});
 
+/* mostrar*/
 router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
 
+router.get("/plotar_users", function (req, res) {
+    usuarioController.plotar_users(req, res);
+});
+
+router.get("/plotar_linguagem", function (req, res) {
+    usuarioController.plotar_linguagem(req, res);
+});
+
+router.get("/plotar_comentario", function (req, res) {
+    usuarioController.plotar_comentario(req, res);
+});
+
+/* cadastrar*/
+router.post("/comentario", function (req, res) {
+    usuarioController.comentario(req, res);
+}) 
+
+router.post("/linguagem", function (req, res) {
+    usuarioController.linguagem(req, res);
+})
+
+router.post("/atualizar", function (req, res) {
+    usuarioController.atualizar(req, res);
+})
+
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
+})
+
+router.post("/cadastrarDados", function (req, res) {
+    usuarioController.cadastrarDados(req, res);
 })
 
 router.post("/autenticar", function (req, res) {

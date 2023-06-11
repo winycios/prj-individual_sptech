@@ -14,6 +14,22 @@ function validarSessao() {
         window.location = "../Tela de login/index.html";
     }
 }
+/* valida telas que estão alocadas em pastas*/
+function validarTelas() {
+    var email = sessionStorage.EMAIL_USUARIO;
+
+    var b_usuario = document.getElementById("b_usuario");
+
+    if (email != null) {
+        // window.alert(`Seja bem-vindo, ${nome}!`);
+        b_usuario.innerHTML = email;
+
+        // finalizarAguardar();
+    } else {
+        window.location = "../../Tela de login/index.html";
+    }
+}
+
 
 function limparSessao() {
     // aguardar();

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../assets/css/comentario.css">
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarTelas(), linguagem(), mostrar_comentario()">
     <!-- =============== Navigation ================ -->
     <div class="container">
         <div class="navigation">
@@ -42,6 +42,14 @@
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title">Inicial</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./linguagem.html">
+                        <span class="icon">
+                            <ion-icon name="code-outline"></ion-icon>
+                        </span>
+                        <span class="title">Linguagens</span>
                     </a>
                 </li>
                 <li>
@@ -82,7 +90,7 @@
                                 <div class="comment-container">
                                     <div class="user">
                                         <div class="user-info">
-                                            <span>Yassine Zanina</span>
+                                            <span id="mostrar_nome"></span>
                                         </div>
                                     </div>
                                     <span class="cont_title">Título : </span>
@@ -96,12 +104,28 @@
                         </div>
 
                         <div class="text-box">
+                            <div id="result"></div>
                             <div class="box-container">
                                 <input type="text" placeholder="Título" id="txt_title" onblur="mostrar()">
                                 <textarea placeholder="Conteúdo" id="place_conteudo" onblur="mostrar()"></textarea>
+                                <div class="input">
+                                    <label class="select" for="slct">
+                                        <select id="slct" required="required">
+                                            <option value="" disabled="disabled" selected="selected">Esse comentário se remete a qual linguagem ?</option>
+                                        </select>
+                                        <svg>
+                                            <use xlink:href="#select-arrow-down"></use>
+                                        </svg>
+                                    </label>
+                                    <svg class="sprites">
+                                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                                            <polyline points="1 1 5 5 9 1"></polyline>
+                                        </symbol>
+                                    </svg>
+                                </div>
                                 <div>
                                     <div class="formatting">
-                                        <button type="button">
+                                        <button class="submit" type="button">
                                             <svg fill="none" viewBox="0 0 24 24" height="16" width="16"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
@@ -114,7 +138,7 @@
                                                 </path>
                                             </svg>
                                         </button>
-                                        <button type="button">
+                                        <button class="submit" type="button">
                                             <svg fill="none" viewBox="0 0 24 24" height="16" width="16"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-width="2.5" stroke="#707277"
@@ -125,7 +149,7 @@
                                                     d="M5 20H12"></path>
                                             </svg>
                                         </button>
-                                        <button type="button">
+                                        <button class="submit" type="button">
                                             <svg fill="none" viewBox="0 0 24 24" height="16" width="16"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
@@ -136,7 +160,7 @@
                                                     d="M3 21H21"></path>
                                             </svg>
                                         </button>
-                                        <button type="button">
+                                        <button class="submit" type="button">
                                             <svg fill="none" viewBox="0 0 24 24" height="16" width="16"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
@@ -146,7 +170,7 @@
                                                 </path>
                                             </svg>
                                         </button>
-                                        <button type="button">
+                                        <button class="submit" type="button">
                                             <svg fill="none" viewBox="0 0 24 24" height="16" width="16"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <circle stroke-linejoin="round" stroke-linecap="round"
@@ -159,7 +183,7 @@
                                                     stroke="#707277" d="M8.00897 9L8 9M16 9L15.991 9"></path>
                                             </svg>
                                         </button>
-                                        <button type="submit" class="send" title="Send">
+                                        <a onclick="cadastrarComentario()" class="send submit" title="Send">
                                             <svg fill="none" viewBox="0 0 24 24" height="18" width="18"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
@@ -169,7 +193,7 @@
                                                     d="M7 9L11.2929 4.70711C11.6262 4.37377 11.7929 4.20711 12 4.20711C12.2071 4.20711 12.3738 4.37377 12.7071 4.70711L17 9">
                                                 </path>
                                             </svg>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -183,78 +207,7 @@
                         <h2>ÚLTIMOS COMENTÁRIOS</h2>
                     </div>
 
-                    <table>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
+                    <table id="mostrar_resultado">
                     </table>
                 </div>
             </div>
@@ -274,6 +227,99 @@
 </html>
 
 <script>
+    function cadastrarComentario() {
+        var tituloVar = txt_title.value;
+        var conteudoVar = place_conteudo.value;
+        var linguagemVar = slct.value;
+
+        if (tituloVar == "" || conteudoVar == "" || linguagemVar == "") {
+            result.innerHTML = `
+            <div id="alertar" class="alert danger-alert">
+                <h3>CAMPOS INVÁLIDOS</h3>
+                <a class="close">&times;</a>
+            </div>`
+
+            setTimeout(() => {
+                alertar.style.display = 'none'
+            }, 2000);
+
+            return false
+        }
+
+        fetch("/usuarios/comentario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                tituloServer: tituloVar,
+                conteudoServer: conteudoVar,
+                linguagemServer : linguagemVar
+            })
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                result.innerHTML = `
+                <div id="alertar" class="alert success-alert">
+                    <h3>Dados atualizados com sucesso</h3>
+                    <a class="close">&times;</a>
+                </div>
+                `
+                setTimeout(() => {
+                    alertar.style.display = 'none'
+                    window.location.href = "./linguagem.html"
+                }, 2000);
+
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+                result.innerHTML = `
+                <div class="alert danger-alert">
+                    <h3>Houve um erro ao tentar realizar a atualização</h3>
+                    <a class="close">&times;</a>
+                </div>
+      `
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+</script>
+
+<script>
+var Listatotalids_Linguagem = []
+var ListaTotalQtd = []
+    function linguagem() {
+        fetch("/usuarios/plotar_linguagem")
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        // console.log(`dados <||*_*||> ${JSON.stringify(resposta)}`);
+                        for(var i = 1; i<=resposta.length; i++){
+                        Listatotalids_Linguagem.push(i)
+                        ListaTotalQtd.push(resposta[i-1].linguagem)
+                    }
+                    selectLinguagem(resposta)
+                    })
+                } else {
+                    console.log("No Data Found")
+                }
+            })
+            .catch(function (error) {
+                console.error(error)
+            })
+    }
+
+    function selectLinguagem(value){
+        for(var i =0; i<value.length; i++){
+            slct.innerHTML += `<option value="${ListaTotalQtd[i]}">${ListaTotalQtd[i]}</option>`
+        }
+    }
+
     function mostrar() {
 
         var titulo = txt_title.value;
@@ -283,4 +329,44 @@
         result_titulo.innerHTML = titulo;
         result_texto.innerHTML = conteudo;
     }
+</script>
+
+<script>
+function mostrar_comentario() {
+    fetch(`/usuarios/plotar_comentario`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                plotarComentario(resposta);
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarComentario(resposta) {
+
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+
+        mostrar_nome.innerHTML =  `${registro.email}`;
+        mostrar_resultado.innerHTML += `
+        
+        <tr>
+            <td>
+                <h4>Título  <br> <span>${registro.titulo}</span></h4>
+            </td>
+            <td>
+                <h4>Linguagem  <br><span>${registro.linguagem}</span></h4>
+            </td>
+        </tr>
+        `
+    }
+}
 </script>

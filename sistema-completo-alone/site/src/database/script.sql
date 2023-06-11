@@ -8,7 +8,7 @@ CREATE TABLE tbUser(
     email VARCHAR(80),
     senha VARCHAR(12)
 );
-    
+ 
 CREATE TABLE tbDados_pessoais(
 
 	idDados INT PRIMARY KEY AUTO_INCREMENT,
@@ -24,6 +24,17 @@ CREATE TABLE tbLinguagens (
 
 	idLinguagens INT PRIMARY KEY AUTO_INCREMENT,
     linguagem VARCHAR(45),
+    nivel varchar(30),
     fk_idDados INT,
     FOREIGN KEY (fk_idDados) REFERENCES tbDados_pessoais(idDados)
+);
+
+CREATE TABLE tbComentario(
+
+idComentario INT PRIMARY KEY AUTO_INCREMENT,
+fk_idUser INT, 
+titulo VARCHAR(45),
+comentario VARCHAR(200),
+linguagem VARCHAR(30),
+FOREIGN KEY (fk_idUser) REFERENCES tbUser(idUser)
 );

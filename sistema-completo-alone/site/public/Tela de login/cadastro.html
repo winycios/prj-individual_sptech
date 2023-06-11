@@ -68,13 +68,17 @@
                 <div class="formbg-outer">
                     <div class="formbg">
                         <div class="formbg-inner padding-horizontal--48">
-                            <span class="padding-bottom--15">CRIE SUA CONTA</span>
+                            <span class="padding-bottom--20">CRIE SUA CONTA</span>
                             <div class="login-content">
                                 <div class="sign-up-form" id="stripe-login">
-                                    <div>
+                                    <input id='step2' type='checkbox'>
+                                    <input id='step3' type='checkbox'>
+                                    <input id='step4' type='checkbox'>
+
+                                    <div id="part1">
                                         <div class="input-div one">
                                             <div class="i">
-                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-envelope"></i>
                                             </div>
                                             <div class="div">
                                                 <h5>Email</h5>
@@ -82,7 +86,35 @@
                                             </div>
                                         </div>
 
-                                        <div class="input-div pass">
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Nome</h5>
+                                                <input type="text" id="ipt_nome" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-signature"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Sobrenome</h5>
+                                                <input type="text" id="ipt_Sobrenome" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="field padding-bottom--48">
+                                            <label for='step2' class="continue">
+                                                <div class="submit" style="align-items: center;">Próximo</div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div id="part2">
+                                        <div class="input-div one">
                                             <div class="i">
                                                 <i class="fas fa-lock"></i>
                                             </div>
@@ -92,8 +124,35 @@
                                             </div>
                                         </div>
 
-                                        <div class="field padding-top--24">
-                                            <button class="submit" onclick="cadastrar()">CADASTRAR</button>
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Telefone</h5>
+                                                <input type="text" id="ipt_telefone" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="input-div focus">
+                                            <div class="i">
+                                                <i class="fas fa-cake-candles"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>Data de nascimento</h5>
+                                                <input type="date" id="dt_nasc" class="input">
+                                            </div>
+                                        </div>
+
+                                        <div class="field padding-bottom--48"
+                                            style="display: flex; flex-direction: row; gap: 30px;">
+                                            <label for='step2' class="continue">
+                                                <div class="submit" style="align-items: center;">Voltar</div>
+                                            </label>
+
+                                            <label>
+                                                <a onclick="juntar()" class="btn solid">CADASTRAR</a>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +170,6 @@
             </div>
         </div>
     </div>
-    </div>
 
     <script src="./Assets/js/script.js"></script>
     <script src="../js/funcoes.js"></script>
@@ -124,12 +182,13 @@
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
+        var nomeVar = ipt_nome.value;
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
             modal.style.display = "flex"
-            texto_inicial.innerHTML = `Olá, ${emailVar}`
+            texto_inicial.innerHTML = `Olá, ${nomeVar}`
             texto.innerHTML = `<div style="color: red; font-weight: 500;">Os campos estão em branco, preencha eles novamente por favor</div>`;
 
             return false;
@@ -153,7 +212,7 @@
 
             if (resposta.ok) {
                 modal.style.display = "flex"
-                texto_inicial.innerHTML = `Olá, ${emailVar}`
+                texto_inicial.innerHTML = `Olá, ${nomeVar}`
                 texto.innerHTML = `<div style="color: blue; font-weight: 500;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</div>`;
 
                 setTimeout(() => {
@@ -165,6 +224,56 @@
                 texto_inicial.innerHTML = `Perdão`
                 texto.innerHTML = `<div style="font-weight: 500;">Houve um erro ao tentar realizar o cadastro!</div>`;
 
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+    function juntar() {
+        setTimeout(function () {
+            cadastrarDados();
+        }, 2000);
+        cadastrar();
+    }
+</script>
+
+
+<script>
+    function cadastrarDados() {
+        var nomeVar = ipt_nome.value;
+        var SobrenomeVar = ipt_Sobrenome.value;
+        var telefoneVar = ipt_telefone.value;
+        var nascimentoVar = dt_nasc.value;
+
+        if (nomeVar == "" || SobrenomeVar == "" || telefoneVar == "" || nascimentoVar == "") {
+
+            return false;
+        }
+
+        fetch("/usuarios/cadastrarDados", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                SobrenomeServer: SobrenomeVar,
+                telefoneServer: telefoneVar,
+                nascimentoServer: nascimentoVar,
+            })
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+          
+                return true
+
+            } else {
+                return false;
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

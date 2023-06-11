@@ -246,7 +246,7 @@ input[type="submit"] {
 }
 
 .input-div.focus>div>h5 {
-  top: -5px;
+  top: 2px;
   font-size: 15px;
 }
 
@@ -418,8 +418,8 @@ input[type=checkbox] {
   padding: 48px;
 }
 
-.padding-bottom--15 {
-  padding-bottom: 15px;
+.padding-bottom--20 {
+  padding-bottom: 20px;
 }
 
 .grid--50-50 {

@@ -123,11 +123,12 @@
 }
 
 .text-box .formatting {
+    margin-top: 10px;
     display: grid;
     grid-template-columns: auto auto auto auto auto 1fr;
 }
 
-.text-box .formatting button {
+.text-box .formatting .submit {
     width: 30px;
     height: 30px;
     position: relative;
@@ -140,7 +141,7 @@
     outline: none;
 }
 
-.text-box .formatting button:hover {
+.text-box .formatting .submit:hover {
     background-color: #f1f1f1;
 }
 
