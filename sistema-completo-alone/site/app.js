@@ -10,6 +10,8 @@ var app = express();
 
 
 var usuarioRouter = require("./src/routes/usuarios");
+var ComentarioRouter = require("./src/routes/comentario_inicial");
+var adminRouter = require("./src/routes/administracao");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,6 +21,8 @@ app.use(cors());
 
 
 app.use("/usuarios", usuarioRouter);
+app.use("/comentarios", ComentarioRouter);
+app.use("/admin", adminRouter);
 
 
 app.listen(PORTA, function () {

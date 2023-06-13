@@ -15,11 +15,11 @@ CREATE TABLE tbDados_pessoais(
     fk_idUser INT,
     nome VARCHAR(30),
     sobrenome VARCHAR(30),
-    telefone CHAR(14),
-    data_nasc DATE,
+    telefone VARCHAR(18),
+    data_nasc DATE,		  
     FOREIGN KEY (fk_idUser) REFERENCES tbUser(idUser)
     );
-    
+
 CREATE TABLE tbLinguagens (
 
 	idLinguagens INT PRIMARY KEY AUTO_INCREMENT,
@@ -38,3 +38,9 @@ comentario VARCHAR(200),
 linguagem VARCHAR(30),
 FOREIGN KEY (fk_idUser) REFERENCES tbUser(idUser)
 );
+
+/* select grafico de barras*/
+select Count(idComentario) as contar, fk_idUser from tbComentario group by fk_idUser;
+
+/* select de pizza*/
+select Count(idComentario) as Contar, linguagem from tbComentario group by linguagem order by Contar Desc;

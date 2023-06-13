@@ -21,6 +21,15 @@ router.get("/plotar_comentario", function (req, res) {
     usuarioController.plotar_comentario(req, res);
 });
 
+router.get("/qtd_comentario", function (req, res) {
+    usuarioController.qtd_comentario(req, res);
+});
+
+router.get("/qtd_linguagem", function (req, res) {
+    usuarioController.qtd_linguagem(req, res);
+});
+
+
 /* cadastrar*/
 router.post("/comentario", function (req, res) {
     usuarioController.comentario(req, res);

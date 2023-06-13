@@ -71,6 +71,40 @@ function plotar_linguagem(req, res) {
         );
 }
 
+function qtd_comentario(req, res) {
+    usuarioModel.qtd_comentario()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function qtd_linguagem(req, res) {
+    usuarioModel.qtd_linguagem()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 /* cadastrar*/
 function entrar(req, res) {
     var email = req.body.emailServer;
@@ -276,5 +310,7 @@ module.exports = {
     linguagem,
     plotar_linguagem,
     listar,
-    atualizar
+    qtd_comentario,
+    qtd_linguagem,
+    atualizar,
 }

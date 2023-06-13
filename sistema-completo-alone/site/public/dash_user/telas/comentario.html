@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="./telas/comentario.html">
+                    <a href="./comentario.html">
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
@@ -264,13 +264,13 @@
             if (resposta.ok) {
                 result.innerHTML = `
                 <div id="alertar" class="alert success-alert">
-                    <h3>Dados atualizados com sucesso</h3>
+                    <h3>Dados cadastrados com sucesso</h3>
                     <a class="close">&times;</a>
                 </div>
                 `
                 setTimeout(() => {
                     alertar.style.display = 'none'
-                    window.location.href = "./linguagem.html"
+                    window.location.href = "./comentario.html"
                 }, 2000);
 
             } else {

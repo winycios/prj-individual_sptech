@@ -36,6 +36,17 @@ function plotar_comentario() { //listar todos os usuarios
     return database.executar(instrucao);
 }
 
+function qtd_comentario() { //listar todos os usuarios
+    console.log("Listando todos os comentarios");
+
+    var instrucao = `
+    select COUNT(c.titulo) as 'qtd' FROM tbComentario c
+        INNER JOIN tbUser u ON u.idUser = c.fk_idUser
+        where u.email = '${emailSessionAtual}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 //listar todos as linguagens
 function plotar_linguagem() {
@@ -50,6 +61,19 @@ function plotar_linguagem() {
     return database.executar(instrucao);
 }
 
+
+/* quantidade de usuario*/
+function qtd_linguagem() {
+    console.log("Listando todos as qtd linguagem");
+
+    var instrucao = `
+    select COUNT(linguagem) as 'qtd' from tbLinguagens where fk_idDados = 
+(select idDados from tbDados_pessoais where fk_idUser = 
+    (select idUser from tbUser where email = '${emailSessionAtual}'));;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 
 /* cadastrar dados*/
@@ -219,6 +243,10 @@ module.exports = {
     cadastrarDados,
     plotar_linguagem,
     atualizar,
+    qtd_linguagem,
     plotar_comentario,
     listar,
+    qtd_comentario,
 };
+
+

@@ -480,7 +480,8 @@ ul li .descr::before {
 }
 
 .swiper {
-    width: 950px;
+    width: auto;
+    height: 100%;
 }
 
 .card {

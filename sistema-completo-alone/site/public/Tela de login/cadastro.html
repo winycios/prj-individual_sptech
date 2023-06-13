@@ -130,7 +130,8 @@
                                             </div>
                                             <div class="div">
                                                 <h5>Telefone</h5>
-                                                <input type="text" id="ipt_telefone" class="input">
+                                                <input type="text" id="ipt_telefone" name="telefone"
+                                                    maxlength="15" class="input">
                                             </div>
                                         </div>
 
@@ -151,7 +152,7 @@
                                             </label>
 
                                             <label>
-                                                <a onclick="juntar()" class="btn solid">CADASTRAR</a>
+                                                <a onclick="juntar()" class="submit btn solid">CADASTRAR</a>
                                             </label>
                                         </div>
                                     </div>
@@ -178,6 +179,32 @@
 </html>
 
 <script>
+    /* Máscaras ER */
+    function mascara(o, f) {
+        v_obj = o;
+        v_fun = f;
+        setTimeout("execmascara()", 1);
+    }
+    function execmascara() {
+        v_obj.value = v_fun(v_obj.value);
+    }
+    function mtel(v) {
+        v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
+        v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+        v = v.replace(/(\d)(\d{4})$/, "$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+        return v;
+    }
+    function id(el) {
+        return document.getElementById(el);
+    }
+    window.onload = function () {
+        id("ipt_telefone").onkeyup = function () {
+            mascara(this, mtel);
+        };
+    };
+
+
+
     function cadastrar() {
 
         //Recupere o valor da nova input pelo nome do id
@@ -269,7 +296,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-          
+
                 return true
 
             } else {

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body onload="validarSessao(), select_dados()">
+<body onload="validarSessao(), select_dados(), mostrar_comentario(), qtd_linguagem(), qtd_comentarios()">
     <div class="video-bg">
         <img src="./assets/Images/principal.png" alt="" srcset="">
     </div>
@@ -80,8 +80,8 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Usuários</div>
+                        <div class="numbers" id="qtd_c">0</div>
+                        <div class="cardName">Total de comentário</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="eye-outline"></ion-icon>
@@ -89,29 +89,11 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Bloqueados</div>
+                        <div class="numbers" id="qtd_l">0</div>
+                        <div class="cardName">Total de Linguagens</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comentarios</div>
-                    </div>
-                    <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Avaliações</div>
-                    </div>
-                    <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -124,77 +106,12 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Título</td>
+                                <td>Linguagem</td>
+                                <td>Estado</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status delivered">Delivered</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status pending">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status return">Return</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status inProgress">In Progress</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status delivered">Delivered</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status pending">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status return">Return</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status inProgress">In Progress</span>
-                                </td>
-                            </tr>
+                        <tbody id="mostrar_resultado">
                         </tbody>
                     </table>
                 </div>
@@ -268,7 +185,7 @@
                                 <label class="input-label">Sobrenome</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="ipt_telefone" class="input-field" required />
+                                <input type="text" id="ipt_telefone"  maxlength="15" class="input-field" required />
                                 <label class="input-label">Telefone</label>
                             </div>
                             <div class="input">
@@ -398,6 +315,97 @@
 
         }
 
-        
+
+    }
+</script>
+
+<script>
+    function mostrar_comentario() {
+        fetch(`/usuarios/plotar_comentario`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarComentario(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarComentario(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            mostrar_resultado.innerHTML += `
+        <tr>
+            <td>${registro.titulo}</td>
+            <td>${registro.linguagem}</td>
+            <td><span class="status delivered">Postado</span></td>
+        </tr>
+        `
+        }
+    }
+</script>
+
+<script>
+    function qtd_comentarios() {
+        fetch(`/usuarios/qtd_comentario`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    qtdComentario(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdComentario(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            qtd_c.innerHTML += `${registro.qtd}`
+        }
+    }
+
+    function qtd_linguagem() {
+        fetch(`/usuarios/qtd_linguagem`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    qtdLinguagem(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdLinguagem(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            qtd_l.innerHTML += `${registro.qtd}`
+        }
     }
 </script>

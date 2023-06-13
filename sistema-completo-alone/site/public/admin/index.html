@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body onload='validarSessao()'>
+<body onload='validarSessao(), select_dados(), qtd_linguagem(), qtd_users(), qtd_avaliacao()'>
     <div class="video-bg">
         <img src="./assets/Images/principal.png" alt="" srcset="">
     </div>
@@ -72,7 +72,7 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
+                        <div class="numbers" id="qtd_u"></div>
                         <div class="cardName">Usuários</div>
                     </div>
                     <div class="iconBx">
@@ -81,29 +81,20 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Bloqueados</div>
+                        <div class="numbers" id="qtd_l"></div>
+                        <div class="cardName">Linguagens</div>
                     </div>
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <ion-icon name="code-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
+                        <div class="numbers" id="qtd_a"></div>
                         <div class="cardName">Comentarios</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Avaliações</div>
-                    </div>
-                    <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -116,77 +107,16 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Nome</td>
+                                <td>Sobrenome</td>
+                                <td>Email</td>
+                                <td>Senha</td>
+                                <td>Telefone</td>
+                                <td>Alteração</td>
+                                <td>exclusão</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status delivered">Delivered</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status pending">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status return">Return</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status inProgress">In Progress</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status delivered">Delivered</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status pending">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td>
-                                    <span class="status return">Return</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td>
-                                    <span class="status inProgress">In Progress</span>
-                                </td>
-                            </tr>
+                        <tbody id="mostrar_resultado">
                         </tbody>
                     </table>
                 </div>
@@ -194,6 +124,66 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div id="demo-modal" class="modal">
+        <div class="modal__content">
+            <h2 class="card-heading">
+                Atualizar conta
+            </h2>
+            <div id="result"></div>
+            <div class="details-modal-content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-form">
+                            <div class="input">
+                                <input type="text" id="ipt_email" class="input-field" required />
+                                <label class="input-label">Email</label>
+                            </div>
+                            <div class="input">
+                                <input type="text" id="ipt_senha" class="input-field" required />
+                                <label class="input-label">Senha</label>
+                            </div>
+                            <div class="action">
+                                <a onclick="atualizarDados()" class="action-button">Atualize os dados</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="modal__close">&times;</a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="ex-modal" class="modal">
+        <div class="modal__content">
+            <h2 class="card-heading">
+                Apagar conta
+            </h2>
+            <div id="resultado"></div>
+            <div class="details-modal-content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-form">
+                            <p>Essa função não poderá ser revertida tem certeza ?</p>
+                            <div style="display: flex; flex-direction: row; gap: 30px;">
+                                <div class="action">
+                                    <a href="#" class="action-button">Não</a>
+                                </div>
+                                <div class="action">
+                                    <a onclick="apagarDados()" class="action-button" style="background: red;">SIM</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="modal__close">&times;</a>
+        </div>
+    </div>
+
     <!-- =========== Scripts =========  -->
     <script src="assets/js/main.js"></script>
     <script src="../js/funcoes.js"></script>
@@ -203,3 +193,259 @@
 </body>
 
 </html>
+
+<script>
+
+    function select_dados() {
+        fetch(`/admin/plotar_users`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarDados(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarDados(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+
+            mostrar_resultado.innerHTML += `
+                            <tr>
+                                <td style="display: none;">${registro.id}</td>
+                                <td>${registro.nome}</td>
+                                <td>${registro.sobre}</td>
+                                <td>${registro.email}</td>
+                                <td>${registro.senha}</td>
+                                <td>${registro.telefone}</td>
+                                <td>
+                                    <button class="button" onclick="alterar('${registro.idUser}')"><span>Alterar Dados</span></button>
+                                </td>
+                                <td>
+                                    <button class="button" style="color:red;"onclick="apagar('${registro.idUser}')"><span>Apagar usuário</span></button>
+                                </td>
+                            </tr>
+                            `
+        }
+    }
+
+</script>
+
+<script>
+    var id = null
+    function alterar(ola) {
+        window.location = "#demo-modal"
+        id = ola
+    }
+    function atualizarDados() {
+        var idVar = id;
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            result.innerHTML = `
+            <div id="alertar" class="alert danger-alert">
+                <h3>CAMPOS INVÁLIDOS</h3>
+                <a class="close">&times;</a>
+            </div>`
+
+            setTimeout(() => {
+                alertar.style.display = 'none'
+            }, 2000);
+
+            return false
+        }
+
+        fetch("/admin/atualizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+            })
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                result.innerHTML = `
+                <div id="alertar" class="alert success-alert">
+                    <h3>Dados atualizados com sucesso</h3>
+                    <a class="close">&times;</a>
+                </div>
+                `
+                setTimeout(() => {
+                    alertar.style.display = 'none'
+                    window.location.href = "./index.html"
+                }, 2000);
+
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+                result.innerHTML = `
+                <div class="alert danger-alert">
+                    <h3>Houve um erro ao tentar realizar a atualização</h3>
+                    <a class="close">&times;</a>
+                </div>
+      `
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+</script>
+
+<script>
+
+    var id = null
+    function apagar(ola) {
+        window.location = "#ex-modal"
+        id = ola
+    }
+    function apagarDados() {
+        var idVar = id;
+
+        fetch("/admin/apagar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idVar,
+            })
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("feito com sucesso")
+                resultado.innerHTML = `
+                <div id="alertar" class="alert success-alert">
+                    <h3>Usuário apagado com sucesso</h3>
+                    <a class="close">&times;</a>
+                </div>
+                `
+                setTimeout(() => {
+                    alertar.style.display = 'none'
+                    window.location.href = "./index.html"
+                }, 2000);
+
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+                result.innerHTML = `
+                <div class="alert danger-alert">
+                    <h3>Houve um erro ao tentar realizar a função</h3>
+                    <a class="close">&times;</a>
+                </div>
+      `
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+</script>
+
+<script>
+
+
+function qtd_users() {
+        fetch(`/admin/qtd_users`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    qtdUsers(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdUsers(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            qtd_u.innerHTML += `${registro.qtd}`
+        }
+    }
+
+
+    function qtd_linguagem() {
+        fetch(`/admin/qtd_lingua`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    qtdLingua(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdLingua(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            qtd_l.innerHTML += `${registro.qtd}`
+        }
+    }
+
+    function qtd_avaliacao() {
+        fetch(`/admin/qtd_aval`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    qtdAval(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdAval(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            qtd_a.innerHTML += `${registro.qtd}`
+        }
+    }
+</script>
+

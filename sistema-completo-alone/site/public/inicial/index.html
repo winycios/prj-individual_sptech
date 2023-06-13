@@ -21,7 +21,7 @@
     <link rel="icon" type="svg" href="./assets/images/so_logo.png">
 </head>
 
-<body>
+<body onload="mostrar_comentario()">
 
     <div class="body-wrap">
         <header>
@@ -303,71 +303,10 @@
             </div>
             <section>
                 <div class="swiper mySwiper container">
-                    <div class="swiper-wrapper content">
-
-                        <div class="swiper-slide card">
-                            <div class="card-content">
-                                <div class="image">
-                                    <img src="https://tinypic.host/images/2022/12/19/img_avatar.png" alt=""
-                                        class="card-img">
-                                </div>
-
-                                <div class="name-profession">
-                                    <span class="name">Mohamed Yousef</span>
-                                    <span class="profession">Web Developer</span>
-                                </div>
-
-                                <div class="rating">
-                                    <div class="estrelas">
-                                        <input type="radio" id="cm_star-empty" name="fb" value="" checked />
-                                        <label for="cm_star-1"><i class="fa"></i></label>
-                                        <input type="radio" id="cm_star-1" name="fb" value="1" />
-                                        <label for="cm_star-2"><i class="fa"></i></label>
-                                        <input type="radio" id="cm_star-2" name="fb" value="2" />
-                                        <label for="cm_star-3"><i class="fa"></i></label>
-                                        <input type="radio" id="cm_star-3" name="fb" value="3" />
-                                        <label for="cm_star-4"><i class="fa"></i></label>
-                                        <input type="radio" id="cm_star-4" name="fb" value="4" />
-                                        <label for="cm_star-5"><i class="fa"></i></label>
-                                        <input type="radio" id="cm_star-5" name="fb" value="5" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide card">
-                            <div class="card-content">
-                                <div class="image">
-                                    <img src="https://tinypic.host/images/2022/12/19/img_avatar.png" alt=""
-                                        class="card-img">
-                                </div>
-
-                                <div class="name-profession">
-                                    <span class="name">Mohamed Yousef</span>
-                                    <span class="profession">Web Developer</span>
-                                </div>
-
-                                <div class="rating">
-                                    <div class="estrelas">
-                                        <input type="radio" id="cm_star-one" name="fb" value="" checked />
-                                        <label for="stars-1"><i class="fa"></i></label>
-                                        <input type="radio" id="stars-1" name="fb" value="1" />
-                                        <label for="stars-2"><i class="fa"></i></label>
-                                        <input type="radio" id="stars-2" name="fb" value="2" />
-                                        <label for="stars-3"><i class="fa"></i></label>
-                                        <input type="radio" id="stars-3" name="fb" value="3" />
-                                        <label for="stars-4"><i class="fa"></i></label>
-                                        <input type="radio" id="stars-4" name="fb" value="4" />
-                                        <label for="stars-5"><i class="fa"></i></label>
-                                        <input type="radio" id="stars-5" name="fb" value="5" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="swiper-wrapper content"id="mostrar_resultado">
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
             </section>
 
@@ -446,7 +385,57 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="./assets/js/script.js"></script>
     <script src="./assets/js/swiper.js"></script>
-    <script src="../js/funcoes.js"></script>
 </body>
 
 </html>
+
+<script>
+function cadastrar_avaliacao() {
+
+    console.log(idComentarios)
+}
+
+    function mostrar_comentario() {
+        fetch(`/comentarios/apresentar_comentario`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+    
+                    plotarComentario(resposta);
+    
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+    
+    function plotarComentario(resposta) {
+    
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+    
+            mostrar_resultado.innerHTML += `
+            <div class="swiper-slide card">
+                            <div class="card-content">
+                                <div class="image">
+                                    <img src="https://tinypic.host/images/2022/12/19/img_avatar.png" alt=""
+                                        class="card-img">
+                                </div>
+
+                                <div class="name-profession">
+                                    <span class="name">${registro.email}</span>
+                                    <span class="profession">${registro.linguagem}</span>
+                                    <span class="name">${registro.titulo}</span>
+                                </div>
+                                <div>${registro.comentario}</div>
+                            </div>
+                        </div>
+                    </div>
+            `
+        }
+    }
+    </script>
