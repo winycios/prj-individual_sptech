@@ -496,6 +496,7 @@ ul li .descr::before {
     flex-direction: column;
     align-items: center;
     padding: 30px;
+    gap: 20px;
     position: relative;
     z-index: 100;
 }
@@ -583,6 +584,11 @@ section .card .image img {
     color: #CCC;
 }
 
+.enviar:hover{
+
+    font-size: 23px;
+    color: white;
+}
 /* chat gpt */
 
 #chat {

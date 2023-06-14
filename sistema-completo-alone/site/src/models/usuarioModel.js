@@ -1,6 +1,7 @@
 var database = require("../database/config")
 var emailSessionAtual = null
-var telefoneAtual = null
+var nomeAtual  = null
+var sobreAtual = null
 
 /* pegar dados*/
 function listar() { //listar todos os usuarios
@@ -28,9 +29,12 @@ function plotar_comentario() { //listar todos os usuarios
     console.log("Listando todos os comentarios");
 
     var instrucao = `
-    select c.titulo, c.linguagem, u.email FROM tbComentario c
-        INNER JOIN tbUser u ON u.idUser = c.fk_idUser
-        where u.email = '${emailSessionAtual}';
+    SELECT c.titulo, c.linguagem, u.email, COALESCE(SUM(a.estrelas), 0) AS estrelas
+    FROM tbComentario c
+    INNER JOIN tbUser u ON u.idUser = c.fk_idUser
+	LEFT JOIN tbAvaliacao a ON c.idComentario = a.fk_idComentario
+    WHERE u.email = '${emailSessionAtual}'
+    GROUP BY c.titulo, c.linguagem;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -75,6 +79,21 @@ function qtd_linguagem() {
     return database.executar(instrucao);
 }
 
+/* quantidade de curtidas*/
+function qtd_curtidas() {
+    console.log("Listando todos as qtd de curtidas");
+
+    var instrucao = `
+    SELECT SUM(a.estrelas) AS qtd
+    FROM tbAvaliacao a
+    INNER JOIN tbComentario c ON a.fk_idComentario = c.idComentario
+    INNER JOIN tbUser u ON c.fk_idUser = u.idUser
+    WHERE u.email = '${emailSessionAtual}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 /* cadastrar dados*/
 
@@ -104,7 +123,8 @@ function cadastrar(email, senha) {
 
 // cadastrar dados do usuario
 function cadastrarDados(nomeUser, sobrenomeUser, telUser, nascUser) { // cadastro de dados pessoais
-    telefoneAtual = telUser;
+    nomeAtual = nomeUser;
+    sobreAtual = sobrenomeUser;
 
     var instrucao = `
     INSERT INTO tbDados_pessoais (nome,sobrenome, telefone ,data_nasc) VALUES ('${nomeUser}', '${sobrenomeUser}', '${telUser}' ,'${nascUser}');
@@ -114,14 +134,15 @@ function cadastrarDados(nomeUser, sobrenomeUser, telUser, nascUser) { // cadastr
 }
 
 function upCadastrar() {
-    return new Promise(() => {
-        database.executar(`
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            database.executar(`
             select idUser from tbUser order by idUser desc limit 1;
               `)
             .then((rows) => {
                 const idAtual = rows[0].idUser;
 
-                database.executar(`select idDados from tbDados_pessoais where telefone = '${telefoneAtual}';`)
+                database.executar(`select idDados from tbDados_pessoais where nome = "${nomeAtual}" and sobrenome = "${sobreAtual}";`)
                     .then((rows) => {
                         const idDados = rows[0].idDados;
                         return database.executar(`
@@ -129,6 +150,13 @@ function upCadastrar() {
                 `);
                     });
             })
+              .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        }, 100);
     })
 }
 
@@ -247,6 +275,7 @@ module.exports = {
     plotar_comentario,
     listar,
     qtd_comentario,
+    qtd_curtidas
 };
 
 

@@ -252,7 +252,7 @@ a{
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
 }
 
@@ -308,7 +308,6 @@ a{
 
 .details .recentOrders {
   position: relative;
-  display: grid;
   min-height: 500px;
   background-color: var(--theme-white-color);
   padding: 20px;

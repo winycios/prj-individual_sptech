@@ -105,6 +105,25 @@ function qtd_linguagem(req, res) {
         );
 }
 
+/* quantidade de curtidas*/
+
+function qtd_curtidas(req, res) {
+    usuarioModel.qtd_curtidas()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 /* cadastrar*/
 function entrar(req, res) {
     var email = req.body.emailServer;
@@ -305,6 +324,7 @@ module.exports = {
     cadastrar,
     plotar_users,
     comentario,
+    qtd_curtidas,
     cadastrarDados,
     plotar_comentario,
     linguagem,

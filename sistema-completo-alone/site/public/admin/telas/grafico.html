@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body onload="validarSessao(), select_dados(), dados_card()">
+<body onload="validarSessao(), select_dados(), dados_card(), grafico_barra_usuario(), grafico_linhas_linguagem(), grafico_barra_comentario()">
     <!-- =============== Navigation ================ -->
     <div class="container">
         <div class="navigation">
@@ -137,7 +137,9 @@
                         <tr>
                             <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                         </tr>
-
+                        <tr>
+                            <canvas id="myChartComentario" style="width:100%;max-width:600px"></canvas>
+                        </tr>
                         <tr>
                             <canvas id="myChartPizza" style="width:100%;max-width:600px"></canvas>
                         </tr>

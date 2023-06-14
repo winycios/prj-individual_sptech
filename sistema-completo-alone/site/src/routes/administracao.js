@@ -27,5 +27,22 @@ router.post("/apagar", function (req, res) {
     adminController.apagar(req, res);
 })
 
+router.post("/cadastrar_avaliacao", function (req, res) {
+    adminController.avaliacao(req, res);
+})
+
+/* graficos*/
+router.get("/grafico_users", function (req, res) {
+    adminController.grafico_users(req, res);
+});
+
+router.get("/grafico_comentario", function (req, res) {
+    adminController.grafico_comentario(req, res);
+});
+
+router.get("/grafico_linguagem", function (req, res) {
+    adminController.grafico_linguagem(req, res);
+});
+
 
 module.exports = router;

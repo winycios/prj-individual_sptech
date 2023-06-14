@@ -235,6 +235,7 @@ body {
   width: 60px;
   height: 60px;
   display: flex;
+  color: white;
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
@@ -304,8 +305,6 @@ body {
 
 .details .recentOrders {
   position: relative;
-  display: grid;
-  min-height: 500px;
   background-color: var(--theme-white-color);
   padding: 20px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
@@ -426,7 +425,10 @@ body {
   cursor: pointer;
 }
 
+.button:hover{
 
+  color: white;
+}
 .modal {
   visibility: hidden;
   opacity: 0;

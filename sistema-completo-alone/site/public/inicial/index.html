@@ -282,15 +282,18 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <span onclick="nova_sugestao()" style="cursor: pointer;">Gostaria de ideias para perguntas ?</span>
+                                    <span onclick="nova_sugestao()" style="cursor: pointer;">Gostaria de ideias para
+                                        perguntas ?</span>
                                 </div>
                             </div>
                         </div>
                         <div class="box_none" id="div_sugestao" style="flex-direction: column;">
                             <P id="text"></P>
                             <div style="align-items: flex-end; display: flex; justify-content: flex-end; gap: 20px;">
-                                <button class="button button-primary button-wide-mobile" onclick="nova_sugestao()">Nova sugestão</button>
-                                <button class="button button-primary button-wide-mobile" style="background: red;" onclick="fechar_sugestao()">fechar</button>
+                                <button class="button button-primary button-wide-mobile" onclick="nova_sugestao()">Nova
+                                    sugestão</button>
+                                <button class="button button-primary button-wide-mobile" style="background: red;"
+                                    onclick="fechar_sugestao()">fechar</button>
                             </div>
                         </div>
                     </div>
@@ -303,9 +306,9 @@
             </div>
             <section>
                 <div class="swiper mySwiper container">
-                    <div class="swiper-wrapper content"id="mostrar_resultado">
+                    <div class="swiper-wrapper content" id="mostrar_resultado">
                     </div>
-                    <div class="swiper-button-next"></div>
+                    <div id="resultado"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
             </section>
@@ -390,19 +393,20 @@
 </html>
 
 <script>
-function cadastrar_avaliacao() {
+    var select_atual = null;
+    function cadastrar_avaliacao() {
 
-    console.log(idComentarios)
-}
+        console.log(idComentarios)
+    }
 
     function mostrar_comentario() {
         fetch(`/comentarios/apresentar_comentario`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`data recebidos: ${JSON.stringify(resposta)}`);
-    
+
                     plotarComentario(resposta);
-    
+
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -412,12 +416,12 @@ function cadastrar_avaliacao() {
                 console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
             });
     }
-    
+
     function plotarComentario(resposta) {
-    
+
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-    
+
             mostrar_resultado.innerHTML += `
             <div class="swiper-slide card">
                             <div class="card-content">
@@ -432,10 +436,98 @@ function cadastrar_avaliacao() {
                                     <span class="name">${registro.titulo}</span>
                                 </div>
                                 <div>${registro.comentario}</div>
+                                <div>
+                                    <label class="select">
+                                        <select id="aval" onchange="alterarOpcoes()" required="required">
+                                            <option value="nenhum" disabled="disabled" selected="selected">Esse comentário se remete a qual linguagem ?</option>
+                                            <option value="1">horrível</option>
+                                            <option value="2">Ruim</option>
+                                            <option value="3">Mais ou menos</option>
+                                            <option value="4">Bom</option>
+                                            <option value="5">Interessante</option>
+                                        </select>
+                                        
+                                        <svg>
+                                            <use xlink:href="#select-arrow-down"></use>
+                                        </svg>
+                                    </label>
+                                    <svg class="sprites">
+                                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                                            <polyline points="1 1 5 5 9 1"></polyline>
+                                        </symbol>
+                                    </svg>
+                                </div>
+                                <span onclick="cadastrar_avaliacao('${registro.idComentario}')" class="enviar" style="cursor: pointer; transition: 0.5s">Enviar</span>
                             </div>
                         </div>
                     </div>
             `
         }
     }
-    </script>
+    function alterarOpcoes() {
+        var selectElement = document.getElementById('aval');
+        select_atual = selectElement.value;
+
+    }
+
+    function cadastrar_avaliacao(ola) {
+        var idVar = ola;
+        var avaliacaoVar = select_atual;
+
+        if (avaliacaoVar === null) {
+            resultado.innerHTML = `
+                <div id="alertar" class="alert danger-alert">
+                    <h3>Selecione alguma opção</h3>
+                    <a class="close">&times;</a>
+                </div>
+                `
+            setTimeout(() => {
+                alertar.style.display = 'none'
+            }, 2000);
+
+            return false;
+        }
+
+        fetch("/admin/cadastrar_avaliacao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idVar,
+                avaliacaoServer: avaliacaoVar,
+            })
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                resultado.innerHTML = `
+                <div id="alertar" class="alert success-alert">
+                    <h3>Dados atualizados com sucesso</h3>
+                    <a class="close">&times;</a>
+                </div>
+                `
+                setTimeout(() => {
+                    alertar.style.display = 'none'
+                    window.location.href = "./index.html"
+                }, 2000);
+
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+                resultado.innerHTML = `
+                <div class="alert danger-alert">
+                    <h3>Houve um erro ao tentar realizar a atualização</h3>
+                    <a class="close">&times;</a>
+                </div>
+      `
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+</script>

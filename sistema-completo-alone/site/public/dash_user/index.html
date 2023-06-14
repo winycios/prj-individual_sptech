@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body onload="validarSessao(), select_dados(), mostrar_comentario(), qtd_linguagem(), qtd_comentarios()">
+<body onload="validarSessao(), select_dados(), mostrar_comentario(), qtd_linguagem(), qtd_comentarios(), qtd_curtidas()">
     <div class="video-bg">
         <img src="./assets/Images/principal.png" alt="" srcset="">
     </div>
@@ -96,6 +96,15 @@
                         <ion-icon name="chatbubbles-outline"></ion-icon>
                     </div>
                 </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers" id="qtd_cur"></div>
+                        <div class="cardName">Total de Curtidas</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="thumbs-up-outline"></ion-icon>
+                    </div>
+                </div>
             </div>
             <!-- ================ Order Details List ================= -->
             <div class="details">
@@ -108,6 +117,7 @@
                             <tr>
                                 <td>Título</td>
                                 <td>Linguagem</td>
+                                <td>Curtidas</td>
                                 <td>Estado</td>
                             </tr>
                         </thead>
@@ -347,6 +357,7 @@
         <tr>
             <td>${registro.titulo}</td>
             <td>${registro.linguagem}</td>
+            <td>${registro.estrelas}</td>
             <td><span class="status delivered">Postado</span></td>
         </tr>
         `
@@ -406,6 +417,33 @@
             var registro = resposta[i];
 
             qtd_l.innerHTML += `${registro.qtd}`
+        }
+    }
+
+    function qtd_curtidas() {
+        fetch(`/usuarios/qtd_curtidas`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`data recebidos: ${JSON.stringify(resposta)}`);
+
+                    qtdCurtidas(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos data p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdCurtidas(resposta) {
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            qtd_cur.innerHTML += `${registro.qtd}`
         }
     }
 </script>

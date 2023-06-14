@@ -17,6 +17,60 @@ function plotar_users(req, res) {
         );
 }
 
+/* grafico*/
+function grafico_users(req, res) {
+    adminModel.grafico_users()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function grafico_linguagem(req, res) {
+    adminModel.grafico_linguagem()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function grafico_comentario(req, res) {
+    adminModel.grafico_comentario()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+
 function qtd_users(req, res) {
     adminModel.qtd_users()
         .then(function (resultado) {
@@ -99,6 +153,35 @@ function atualizar(req, res) {
     }
 }
 
+/* Cadastrar avaliações */
+function avaliacao(req, res) {
+    var id = req.body.idServer;
+    var estrelas = req.body.avaliacaoServer;
+
+
+    if (id == undefined) {
+        res.status(400).send("Seu id está undefined!");
+    } else if (estrelas == undefined) {
+        res.status(400).send("Seu estrelas está undefined!");
+    } else {
+        adminModel.avaliacao(id, estrelas)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do funcionario! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 /* apagar usuario */
 function apagar(req, res) {
     var id = req.body.idServer;
@@ -106,7 +189,7 @@ function apagar(req, res) {
     if (id == undefined) {
         res.status(400).send("Seu id está undefined!");
     } else {
-        adminModel.apagar(id,)
+        adminModel.apagar(id)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -130,5 +213,10 @@ module.exports = {
     qtd_aval,
     apagar,
     atualizar,
-    plotar_users
+    plotar_users,
+
+    grafico_users,
+    grafico_comentario,
+    grafico_linguagem,
+    avaliacao
 }

@@ -30,6 +30,10 @@ router.get("/qtd_linguagem", function (req, res) {
 });
 
 
+router.get("/qtd_curtidas", function (req, res) {
+    usuarioController.qtd_curtidas(req, res);
+});
+
 /* cadastrar*/
 router.post("/comentario", function (req, res) {
     usuarioController.comentario(req, res);
